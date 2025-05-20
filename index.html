@@ -84,7 +84,7 @@
       background-color: #aed581;
       border-radius: 50%;
       margin: 2rem auto;
-      animation: breathAnim 12s infinite ease-in-out;
+      animation: breathAnim 8s infinite ease-in-out;
     }
 
     @keyframes breathAnim {
@@ -151,8 +151,8 @@
     <div id="feedback" class="card hidden"></div>
 
     <div id="harjoitukset" class="hidden">
-      <div class="card">Kohta alkaa 3 rauhallista hengityskierrosta.</div>
-      <div class="circle"></div>
+      <div class="card" id="harjoitusOhje">Valmistaudu rauhalliseen hengitykseen...</div>
+      <div class="circle hidden" id="hengityspallo"></div>
     </div>
 
     <div id="mitaKaipaat" class="hidden">
@@ -202,7 +202,18 @@
     function goTo(section) {
       clearFrame();
       document.getElementById("motivaatiokuva").classList.add("hidden");
-      document.getElementById(section).classList.remove("hidden");
+      if (section === "harjoitukset") {
+        document.getElementById("harjoitukset").classList.remove("hidden");
+        const ohje = document.getElementById("harjoitusOhje");
+        const pallo = document.getElementById("hengityspallo");
+        ohje.textContent = "Seuraa palloa – hengitä sisään ja ulos rauhallisesti.";
+        setTimeout(() => {
+          ohje.classList.add("hidden");
+          pallo.classList.remove("hidden");
+        }, 2000);
+      } else {
+        document.getElementById(section).classList.remove("hidden");
+      }
     }
 
     function selectFeeling(level) {
